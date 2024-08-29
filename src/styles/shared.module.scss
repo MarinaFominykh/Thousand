@@ -1,0 +1,9 @@
+.fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}

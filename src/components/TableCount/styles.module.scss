@@ -1,0 +1,26 @@
+.chell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+}
+.image {
+  width: 24px;
+  height: 24px;
+  //   position: absolute;
+  //   top: 0;
+  //   right: 0;
+  img {
+    width: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .image {
+    width: 16px;
+    height: 16px;
+  }
+}

@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  background-color: #f1f5fc;
+}
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+.MuiDialog-paper {
+  max-width: 600px;
+  width: 100%;
+}
+.MuiTypography-root.MuiFormControlLabel-label {
+  font-size: 12px;
+}
