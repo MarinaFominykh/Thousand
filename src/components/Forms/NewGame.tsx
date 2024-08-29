@@ -4,7 +4,7 @@ import { useStyles } from "@hooks/useStyles";
 import { useAppDispatch, useAppSelector } from "@hooks/redux";
 import { useFormValue } from "@hooks/useFormValue";
 import { setPlayers } from "@store/reducers/playerSlice";
-import { resetBet } from "@store/reducers/gameSlice";
+import { resetBet, resetGame, setDealer, setGame } from "@store/reducers/gameSlice";
 import styles from "./styles.module.scss";
 import sharedStyles from "../../styles/shared.module.scss";
 
@@ -32,10 +32,10 @@ export const NewGame: FC<Props> = ({ onClose }) => {
   const dispatch = useAppDispatch();
   const { values, handleChange, resetForm } = useFormValue();
   const { players } = useAppSelector((state) => state.playerSlice);
-
+const {game: {roundResult}, game} = useAppSelector(state => state.gameSlice)
   const startGame = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(resetBet());
+   
     const arr = Array(3).fill({});
     const players = arr.map((item, i) => {
       return {
@@ -47,6 +47,7 @@ export const NewGame: FC<Props> = ({ onClose }) => {
       };
     });
     dispatch(setPlayers(players));
+    dispatch(resetGame())
     onClose();
   };
 

@@ -52,11 +52,12 @@ export const TableCount: FC<Props> = ({ results }) => {
     bet: { bet },
   } = useAppSelector((state) => state.gameSlice);
   const [keeper100, setKeeper100] = useState(dealer + 1);
+
   useEffect(() => {
     setKeeper100(dealer + 1);
   }, [dealer]);
-  console.log("dealer", dealer);
-  console.log("keeper100", keeper100);
+
+ 
   return (
     <TableContainer component={Paper}>
       <Table>

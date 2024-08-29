@@ -47,6 +47,20 @@ export const gameSlice = createSlice({
     ) => {
       state.bet = action.payload;
     },
+    resetGame: (state) => {
+      state.game.roundResult = [
+      {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+      },
+    ],
+     state.bet = {
+        playerId: "1",
+        bet: 100,
+      },
+      state.dealer = 0;
+    },
     resetBet: (state) => {
       state.bet = {
         playerId: "1",
@@ -56,7 +70,7 @@ export const gameSlice = createSlice({
   },
 });
 
-export const { setRound, setDealer, setGame, setBet, resetBet } =
+export const { setRound, setDealer, setGame, setBet, resetBet, resetGame } =
   gameSlice.actions;
 
 export default gameSlice.reducer;
