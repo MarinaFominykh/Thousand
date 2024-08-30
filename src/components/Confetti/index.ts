@@ -1,0 +1,1 @@
+export { ConfettiC } from "./Confetti";

@@ -8,6 +8,9 @@ import { TableCount } from "@components/TableCount/TableCount";
 import { useStyles } from "@hooks/useStyles";
 import styles from "./styles.module.scss";
 import { IPlayer } from "@src/types/IPlayer";
+import { ConfettiC } from "@components/Confetti";
+import { useEffect } from "react";
+import { setComleted } from "@store/reducers/gameSlice";
 
 export const Main = () => {
   const cx = useStyles(styles);
@@ -16,6 +19,7 @@ export const Main = () => {
   const {
     bet: { playerId, bet },
     game: { roundResult },
+    completed,
   } = useAppSelector((state) => state.gameSlice);
 
   const [open, openModal, closeModal] = useModal();
@@ -25,8 +29,18 @@ export const Main = () => {
     openModal();
   };
 
+  useEffect(() => {
+    players.forEach((player) => {
+      if (player.score >= 1000) {
+        dispatch(setComleted(true));
+      }
+    });
+  }, [players]);
+
   return (
     <main className={cx("main")}>
+      {completed && <ConfettiC />}
+
       <section className={cx("section")}>
         <Button
           variant="contained"

@@ -8,6 +8,7 @@ interface GameState {
   game: IGame;
   bet: IBet;
   isTruck: boolean;
+  completed: boolean;
 }
 
 const initialState: GameState = {
@@ -28,6 +29,7 @@ const initialState: GameState = {
     bet: 100,
   },
   isTruck: false,
+  completed: false,
 };
 
 export const gameSlice = createSlice({
@@ -62,6 +64,7 @@ export const gameSlice = createSlice({
           bet: 100,
         }),
         (state.dealer = 0);
+      state.completed = false;
     },
     resetBet: (state) => {
       state.bet = {
@@ -71,6 +74,9 @@ export const gameSlice = createSlice({
     },
     setTruck: (state, action: PayloadAction<boolean>) => {
       state.isTruck = action.payload;
+    },
+    setComleted: (state, action: PayloadAction<boolean>) => {
+      state.completed = action.payload;
     },
   },
 });
@@ -83,6 +89,7 @@ export const {
   resetBet,
   resetGame,
   setTruck,
+  setComleted,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;
