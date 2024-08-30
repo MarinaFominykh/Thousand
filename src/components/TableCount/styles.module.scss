@@ -14,13 +14,24 @@
     transform: rotate(0deg);
   }
 }
-
+.chell-container {
+  position: relative;
+}
 .chell {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  position: relative;
+}
+.bolt {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 12px;
+  width: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .image {
   width: 24px;

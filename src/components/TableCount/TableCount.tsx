@@ -93,11 +93,20 @@ export const TableCount: FC<Props> = ({ results }) => {
           <TableHead>
             <TableRow>
               {players.map((player: IPlayer, index: number) => (
-                <StyledTableCell align="center" key={player.id}>
+                <StyledTableCell
+                  align="center"
+                  key={player.id}
+                  className={cx("chell-container")}
+                >
                   <div className={cx("chell")}>
-                    {Array.from(Array(player.bolt).keys()).map((_, itemId) => (
-                      <ModeIcon key={itemId} fontSize="small" />
-                    ))}
+                    <div className={cx("bolt")}>
+                      {Array.from(Array(player.bolt).keys()).map(
+                        (_, itemId) => (
+                          <ModeIcon key={itemId} fontSize="small" />
+                        )
+                      )}
+                    </div>
+
                     {player.name}
                     <div className={cx("image")}>
                       {keeper100 === index && bet <= 100 && (

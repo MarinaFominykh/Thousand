@@ -3,8 +3,6 @@ export type TResult = {
 };
 export interface IGame {
   roundResult: TResult[];
-  //roundResult: { "0": number; "1": number; "2": number }[];
-  ///dealer: number;
 }
 
 export interface IBet {

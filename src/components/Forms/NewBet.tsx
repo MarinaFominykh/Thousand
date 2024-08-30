@@ -41,7 +41,7 @@ export const NewBet: FC<Props> = ({ onClose }) => {
     <form className={cx("form")} onSubmit={addBet}>
       <fieldset className={cxShared("fieldset")}>
         <FormControl>
-          <InputLabel>Device</InputLabel>
+          <InputLabel>Игрок</InputLabel>
           <Select
             name="playerId"
             label="Игрок"
@@ -61,10 +61,11 @@ export const NewBet: FC<Props> = ({ onClose }) => {
           name="bet"
           label="Ставка"
           slotProps={{
-            htmlInput: { type: "number", min: "100", step: "5" },
+            htmlInput: { type: "number", min: "105", step: "5" },
           }}
           value={values?.bet || ""}
           onChange={handleChange}
+          placeholder="Введите ставку"
           required
         />
       </fieldset>
