@@ -16,6 +16,7 @@ import hundred from "@assets/svg/hundred.svg";
 import { TResult } from "@src/types/IGame";
 import { useStyles } from "@hooks/useStyles";
 import styles from "./styles.module.scss";
+import { Typography } from "@mui/material";
 
 interface Props {
   results: TResult[];
@@ -94,25 +95,27 @@ export const TableCount: FC<Props> = ({ results }) => {
             <TableRow>
               {players.map((player: IPlayer, index: number) => (
                 <StyledTableCell
-                  align="center"
                   key={player.id}
                   className={cx("chell-container")}
                 >
                   <div className={cx("chell")}>
+                    <div className={cx("name-container")}>
+                      <Typography variant="body2">{player.name}</Typography>
+                      <div className={cx("image")}>
+                        {keeper100 === index && bet <= 100 && (
+                          <img src={hundred} />
+                        )}
+                        {dealer === index && (
+                          <BackHandIcon sx={{ fontSize: "16px" }} />
+                        )}
+                      </div>
+                    </div>
                     <div className={cx("bolt")}>
                       {Array.from(Array(player.bolt).keys()).map(
                         (_, itemId) => (
-                          <ModeIcon key={itemId} fontSize="small" />
+                          <ModeIcon key={itemId} sx={{ fontSize: "12px" }} />
                         )
                       )}
-                    </div>
-
-                    {player.name}
-                    <div className={cx("image")}>
-                      {keeper100 === index && bet <= 100 && (
-                        <img src={hundred} />
-                      )}
-                      {dealer === index && <BackHandIcon fontSize="small" />}
                     </div>
                   </div>
                 </StyledTableCell>
