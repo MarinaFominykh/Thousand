@@ -1,6 +1,8 @@
-import { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect, useRef } from "react";
 import { styled } from "@mui/material/styles";
 import BackHandIcon from "@mui/icons-material/BackHand";
+import FireTruckIcon from "@mui/icons-material/FireTruck";
+import ModeIcon from "@mui/icons-material/Mode";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -46,53 +48,92 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export const TableCount: FC<Props> = ({ results }) => {
   const cx = useStyles(styles);
+  const ref = useRef<HTMLDivElement>(null);
   const { players } = useAppSelector((state) => state.playerSlice);
   const {
     dealer,
     bet: { bet },
+    isTruck,
   } = useAppSelector((state) => state.gameSlice);
   const [keeper100, setKeeper100] = useState(dealer + 1);
 
   useEffect(() => {
-    setKeeper100(dealer + 1);
+    switch (dealer) {
+      case 0:
+        setKeeper100(1);
+        break;
+      case 1:
+        setKeeper100(2);
+        break;
+      case 2:
+        setKeeper100(0);
+        break;
+      default:
+        setKeeper100(1);
+    }
   }, [dealer]);
+  useEffect(() => {
+    if (isTruck) {
+      ref.current?.classList.add("visible");
+    } else {
+      ref.current?.classList.remove("visible");
+    }
+  }, [isTruck]);
 
- 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {players.map((player: IPlayer, index: number) => (
-              <StyledTableCell align="center" key={player.id}>
-                <div className={cx("chell")}>
-                  {player.name}
-                  <div className={cx("image")}>
-                    {keeper100 === index && bet <= 100 && <img src={hundred} />}
-                    {dealer === index && <BackHandIcon fontSize="small" />}
+    <Paper
+      sx={{ width: "100%", backgroundColor: "#f1f5fc", position: "relative" }}
+      className={cx("table-container")}
+    >
+      <div className="truck-container" ref={ref}>
+        <FireTruckIcon
+          className="truck"
+          color="primary"
+          fontSize="large"
+          sx={{ display: "none" }}
+        />
+      </div>
+
+      <TableContainer sx={{ maxHeight: 440 }}>
+        <Table stickyHeader>
+          <TableHead>
+            <TableRow>
+              {players.map((player: IPlayer, index: number) => (
+                <StyledTableCell align="center" key={player.id}>
+                  <div className={cx("chell")}>
+                    {Array.from(Array(player.bolt).keys()).map((_, itemId) => (
+                      <ModeIcon key={itemId} fontSize="small" />
+                    ))}
+                    {player.name}
+                    <div className={cx("image")}>
+                      {keeper100 === index && bet <= 100 && (
+                        <img src={hundred} />
+                      )}
+                      {dealer === index && <BackHandIcon fontSize="small" />}
+                    </div>
                   </div>
-                </div>
-              </StyledTableCell>
+                </StyledTableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {results?.map((result, i) => (
+              <StyledTableRow key={i}>
+                <StyledTableCell align="center">{result[0]}</StyledTableCell>
+                <StyledTableCell align="center">{result[1]}</StyledTableCell>
+                <StyledTableCell align="center">{result[2]}</StyledTableCell>
+              </StyledTableRow>
             ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {results?.map((result, i) => (
-            <StyledTableRow key={i}>
-              <StyledTableCell align="center">{result[0]}</StyledTableCell>
-              <StyledTableCell align="center">{result[1]}</StyledTableCell>
-              <StyledTableCell align="center">{result[2]}</StyledTableCell>
-            </StyledTableRow>
-          ))}
-          {/* <StyledTableRow>
+            {/* <StyledTableRow>
             {players.map((player: IPlayer) => (
               <StyledTableCell key={player.id} align="center">
                 {player.score}
               </StyledTableCell>
             ))}
           </StyledTableRow> */}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };

@@ -44,7 +44,7 @@ export const NewBet: FC<Props> = ({ onClose }) => {
           <InputLabel>Device</InputLabel>
           <Select
             name="playerId"
-            label="device"
+            label="Игрок"
             value={values?.playerId || ""}
             onChange={handleSelectChange}
             required
@@ -59,7 +59,7 @@ export const NewBet: FC<Props> = ({ onClose }) => {
 
         <TextField
           name="bet"
-          label="Bet"
+          label="Ставка"
           slotProps={{
             htmlInput: { type: "number", min: "100", step: "5" },
           }}

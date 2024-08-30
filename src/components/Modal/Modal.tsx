@@ -1,13 +1,5 @@
-import { FC, FormEvent } from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-} from "@mui/material";
+import { FC } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { useAppSelector } from "@hooks/redux";
 import { EVariantModal } from "@src/types/EVariantModal";
 import { NewGame } from "@components/Forms/NewGame";
@@ -19,15 +11,10 @@ import styles from "./styles.module.scss";
 interface Props {
   open: boolean;
   handleClose: () => void;
-  //handleSubmit: (event: FormEvent) => void;
 }
 
 export const Modal: FC<Props> = (props) => {
-  const {
-    open,
-    handleClose,
-    //handleSubmit
-  } = props;
+  const { open, handleClose } = props;
   const cx = useStyles(styles);
   const { variant, title } = useAppSelector((state) => state.modalSlice);
   const variantModalRender = () => {
@@ -40,27 +27,11 @@ export const Modal: FC<Props> = (props) => {
     }
   };
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      className={cx("modal")}
-      //   PaperProps={{
-      //     component: "form",
-      //     onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-      //       event.preventDefault();
-      //       handleSubmit(event);
-      //       handleClose();
-      //     },
-      //   }}
-    >
+    <Dialog open={open} onClose={handleClose} className={cx("modal")}>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent className={cx("content")}>
         {variantModalRender()}
       </DialogContent>
-      {/* <DialogActions>
-        <Button onClick={handleClose}>Отмена</Button>
-        <Button type="submit">Сохранить</Button>
-      </DialogActions> */}
     </Dialog>
   );
 };

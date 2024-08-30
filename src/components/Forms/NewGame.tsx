@@ -1,10 +1,10 @@
-import React, { FormEvent, FC } from "react";
+import { FormEvent, FC } from "react";
 import { TextField, Button } from "@mui/material";
 import { useStyles } from "@hooks/useStyles";
-import { useAppDispatch, useAppSelector } from "@hooks/redux";
+import { useAppDispatch } from "@hooks/redux";
 import { useFormValue } from "@hooks/useFormValue";
 import { setPlayers } from "@store/reducers/playerSlice";
-import { resetBet, resetGame, setDealer, setGame } from "@store/reducers/gameSlice";
+import { resetGame } from "@store/reducers/gameSlice";
 import styles from "./styles.module.scss";
 import sharedStyles from "../../styles/shared.module.scss";
 
@@ -12,14 +12,14 @@ const dataFields = [
   {
     id: 1,
     name: "0",
-    label: "Устройство 1",
+    label: "Игрок 1",
   },
   {
     id: 2,
     name: "1",
-    label: "Устройство 2",
+    label: "Игрок 2",
   },
-  { id: 3, name: "2", label: "Устройство 3" },
+  { id: 3, name: "2", label: "Игрок 3" },
 ];
 
 interface Props {
@@ -30,24 +30,24 @@ export const NewGame: FC<Props> = ({ onClose }) => {
   const cx = useStyles(styles);
   const cxShared = useStyles(sharedStyles);
   const dispatch = useAppDispatch();
-  const { values, handleChange, resetForm } = useFormValue();
-  const { players } = useAppSelector((state) => state.playerSlice);
-const {game: {roundResult}, game} = useAppSelector(state => state.gameSlice)
+  const { values, handleChange } = useFormValue();
+
   const startGame = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   
+
     const arr = Array(3).fill({});
-    const players = arr.map((item, i) => {
+    const players = arr.map((_, i) => {
       return {
         id: String(i),
         name: values?.[String(i)] || "",
         score: 0,
         active: false,
         rounds: [0],
+        bolt: 0,
       };
     });
     dispatch(setPlayers(players));
-    dispatch(resetGame())
+    dispatch(resetGame());
     onClose();
   };
 
@@ -64,6 +64,9 @@ const {game: {roundResult}, game} = useAppSelector(state => state.gameSlice)
             required
             fullWidth
             size="small"
+            slotProps={{
+              htmlInput: { maxLength: "10" },
+            }}
           />
         ))}
       </fieldset>

@@ -1,3 +1,20 @@
+@keyframes move {
+  0% {
+    left: 0%;
+    top: -40px;
+  }
+
+  95% {
+    transform: rotate(15deg);
+  }
+
+  100% {
+    left: 95%;
+    top: -40px;
+    transform: rotate(0deg);
+  }
+}
+
 body {
   margin: 0;
   background-color: #f1f5fc;
@@ -13,4 +30,13 @@ fieldset {
 }
 .MuiTypography-root.MuiFormControlLabel-label {
   font-size: 12px;
+}
+
+.truck-container {
+  height: 35px;
+}
+.visible .truck {
+  position: absolute;
+  animation: move 3s ease forwards;
+  display: block;
 }

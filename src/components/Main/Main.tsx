@@ -1,4 +1,3 @@
-import React, { FormEvent, useState } from "react";
 import { useAppSelector, useAppDispatch } from "@hooks/redux";
 import { useModal } from "@hooks/useModal";
 import { Button, Typography } from "@mui/material";
@@ -10,33 +9,6 @@ import { useStyles } from "@hooks/useStyles";
 import styles from "./styles.module.scss";
 import { IPlayer } from "@src/types/IPlayer";
 
-const results = [
-  {
-    "0": 0,
-    "1": 0,
-    "2": 0,
-  },
-  // {
-  //   first: 120,
-  //   second: 15,
-  //   third: 0,
-  // },
-  // {
-  //   first: 135,
-  //   second: 15,
-  //   third: 150,
-  // },
-  // {
-  //   first: 135,
-  //   second: 15,
-  //   third: 150,
-  // },
-  // {
-  //   first: 135,
-  //   second: 15,
-  //   third: 150,
-  // },
-];
 export const Main = () => {
   const cx = useStyles(styles);
   const dispatch = useAppDispatch();
@@ -45,26 +17,28 @@ export const Main = () => {
     bet: { playerId, bet },
     game: { roundResult },
   } = useAppSelector((state) => state.gameSlice);
+
   const [open, openModal, closeModal] = useModal();
   const name = players?.find((player: IPlayer) => player.id === playerId)?.name;
   const handleOpenModal = (variant: EVariantModal, title: string) => {
     dispatch(setVariant({ title, variant }));
     openModal();
   };
+
   return (
     <main className={cx("main")}>
       <section className={cx("section")}>
         <Button
           variant="contained"
           onClick={() =>
-            handleOpenModal(EVariantModal.newGame, "Добавить устройство")
+            handleOpenModal(EVariantModal.newGame, "Добавить игроков")
           }
         >
-          Начать
+          Старт!
         </Button>
         {bet > 100 && (
           <div className={cx("bet-container")}>
-            <Typography variant="h6">{name}:</Typography>
+            <Typography variant="h6">Ставка {name}:</Typography>
             <Typography variant="h6">{bet}</Typography>
           </div>
         )}
@@ -75,18 +49,18 @@ export const Main = () => {
               <Button
                 variant="contained"
                 onClick={() =>
-                  handleOpenModal(EVariantModal.addBet, "Make bet")
+                  handleOpenModal(EVariantModal.addBet, "Сделать ставку")
                 }
               >
-                Make bet
+                Сделать ставку
               </Button>
               <Button
                 variant="contained"
                 onClick={() =>
-                  handleOpenModal(EVariantModal.addResult, "Add result")
+                  handleOpenModal(EVariantModal.addResult, "Добавить результат")
                 }
               >
-                Add result
+                Результат
               </Button>
             </div>
           </>

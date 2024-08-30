@@ -4,4 +4,5 @@ export interface IPlayer {
   score: number;
   active: boolean;
   rounds: number[];
+  bolt: number;
 }
