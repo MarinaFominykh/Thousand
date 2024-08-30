@@ -21,10 +21,8 @@ import { useStyles } from "@hooks/useStyles";
 import styles from "./styles.module.scss";
 import sharedStyles from "../../styles/shared.module.scss";
 import { IPlayer } from "@src/types/IPlayer";
+import { TResult } from "@src/types/IGame";
 
-type TResult = {
-  [key: string]: string | number;
-};
 interface Props {
   onClose: () => void;
 }
@@ -61,14 +59,14 @@ export const NewResult: FC<Props> = ({ onClose }) => {
         ...numberValues,
         [playerId]: checked ? bet : -bet,
       };
-      const lastResult = roundResult[roundResult.length - 1];
+      const lastResult: TResult = roundResult[roundResult.length - 1];
       const result: TResult = {};
       for (const key in lastResult) {
         if (lastResult.hasOwnProperty(key)) {
-          if (round[key] === 0 && players[key].bolt === 2) {
-            result[key] = lastResult[key] - 120;
+          if (round[key] === 0 && players[Number(key)].bolt === 2) {
+            result[key] = Number(lastResult[key]) - 120;
           } else {
-            result[key] = lastResult[key] + (round[key] || 0);
+            result[key] = Number(lastResult[key]) + Number(round[key] || 0);
           }
 
           if (result[key] === 555) {
@@ -86,7 +84,7 @@ export const NewResult: FC<Props> = ({ onClose }) => {
             return { ...pl, bolt: 0 };
           } else return { ...pl, bolt: pl.bolt + 1 };
         }
-        return { ...pl, score: result[pl.id] };
+        return { ...pl, score: Number(result[pl.id]) };
       });
       dispatch(setPlayers(updatedPlayers));
       dispatch(setGame({ ...game, roundResult: [...roundResult, result] }));
@@ -135,7 +133,7 @@ export const NewResult: FC<Props> = ({ onClose }) => {
               label={player.name}
               value={values?.[player.id] || ""}
               onChange={handleChange}
-              placeholder="Результат"
+              placeholder="Добавить результат"
               slotProps={{
                 htmlInput: { type: "number", step: "5" },
               }}

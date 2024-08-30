@@ -1,5 +1,9 @@
+export type TResult = {
+  [key: string]: string | number;
+};
 export interface IGame {
-  roundResult: { "0": number; "1": number; "2": number }[];
+  roundResult: TResult[];
+  //roundResult: { "0": number; "1": number; "2": number }[];
   ///dealer: number;
 }
 

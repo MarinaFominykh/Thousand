@@ -13,18 +13,12 @@ import Paper from "@mui/material/Paper";
 import { useAppSelector } from "@hooks/redux";
 import { IPlayer } from "@src/types/IPlayer";
 import hundred from "@assets/svg/hundred.svg";
+import { TResult } from "@src/types/IGame";
 import { useStyles } from "@hooks/useStyles";
 import styles from "./styles.module.scss";
 
-type Round = {
-  "0": number;
-  "1": number;
-  "2": number;
-};
-
 interface Props {
-  results: Round[];
-  //players: Player[];
+  results: TResult[];
 }
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,7 +34,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   "&:nth-of-type(odd)": {
     backgroundColor: theme.palette.action.hover,
   },
-  // hide last border
+
   "&:last-child td, &:last-child th": {
     border: 0,
   },
