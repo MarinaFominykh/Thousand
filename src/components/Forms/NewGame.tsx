@@ -41,9 +41,9 @@ export const NewGame: FC<Props> = ({ onClose }) => {
         id: String(i),
         name: values?.[String(i)] || "",
         score: 0,
-        // active: false,
-        // rounds: [0],
         bolt: 0,
+        isKeg: false,
+        kegBet: 0,
       };
     });
     dispatch(setPlayers(players));

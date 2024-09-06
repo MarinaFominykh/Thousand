@@ -52,6 +52,11 @@
   }
 }
 
+.keg {
+  width: 24px;
+  height: 24px;
+}
+
 .truck-container {
   height: 35px;
 }
@@ -67,7 +72,8 @@
     }
   }
 
-  .image {
+  .image,
+  .keg {
     width: 16px;
     height: 16px;
   }

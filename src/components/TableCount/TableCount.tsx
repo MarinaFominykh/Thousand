@@ -13,11 +13,11 @@ import Paper from "@mui/material/Paper";
 import { useAppSelector } from "@hooks/redux";
 import { IPlayer } from "@src/types/IPlayer";
 import hundred from "@assets/svg/hundred.svg";
+import barrel from "@assets/svg/barrel.svg";
 import { TResult } from "@src/types/IGame";
 import { useStyles } from "@hooks/useStyles";
 import styles from "./styles.module.scss";
 import { Typography } from "@mui/material";
-
 interface Props {
   results: TResult[];
 }
@@ -111,13 +111,20 @@ export const TableCount: FC<Props> = ({ results }) => {
                         )}
                       </div>
                     </div>
-                    <div className={cx("bolt")}>
-                      {Array.from(Array(player.bolt).keys()).map(
-                        (_, itemId) => (
-                          <ModeIcon key={itemId} sx={{ fontSize: "12px" }} />
-                        )
-                      )}
-                    </div>
+                    {!player.isKeg && player.bolt > 0 && (
+                      <div className={cx("bolt")}>
+                        {Array.from(Array(player.bolt).keys()).map(
+                          (_, itemId) => (
+                            <ModeIcon key={itemId} sx={{ fontSize: "12px" }} />
+                          )
+                        )}
+                      </div>
+                    )}
+                    {player.isKeg && (
+                      <div className={cx("keg")}>
+                        <img src={barrel} />
+                      </div>
+                    )}
                   </div>
                 </StyledTableCell>
               ))}
